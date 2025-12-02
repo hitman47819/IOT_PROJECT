@@ -1,0 +1,8 @@
+fastapi==0.110.0
+uvicorn==0.29.0
+pydantic==2.6.0
+kafka-python==2.1.0
+redis==5.0.1
+mysql-connector-python==9.0.0
+python-dotenv==1.0.1
+yfinance==0.2.40   #  for fetching historical data 
