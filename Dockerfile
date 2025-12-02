@@ -1,5 +1,5 @@
-# Example Dockerfile for API, Worker, and Generator
-FROM python:3.9-slim
+# Use a base image
+FROM python:3.9-slim AS base
 
 # Set working directory
 WORKDIR /app
@@ -7,10 +7,17 @@ WORKDIR /app
 # Copy files into the container
 COPY . .
 
-# Install dependencies (assumes a requirements.txt file is present)
+# Install dependencies
 RUN pip install -r requirements.txt
 
-# Set the target as per the service (api, worker, generator)
-# Example for API service:
-# For `api` you might run something like:
-CMD ["python", "app.py"]
+# --------- Stage for API ---------
+FROM base AS api
+CMD ["python", "api_app.py"]
+
+# --------- Stage for Worker ---------
+FROM base AS worker
+CMD ["python", "worker_app.py"]
+
+# --------- Stage for Generator ---------
+FROM base AS generator
+CMD ["python", "generator_app.py"]
